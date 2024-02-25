@@ -81,7 +81,7 @@ public class InputOK {
         try {
             n = Double.parseDouble(n2);
             return n;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
 
             String n3 = n2.replace(',', '.');
             n = Double.parseDouble(n3);
