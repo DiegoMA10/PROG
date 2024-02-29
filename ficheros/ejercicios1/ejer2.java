@@ -55,8 +55,11 @@ public class ejer2 {
                     System.out.println("El fichero no existe");
                 }
             } catch (SecurityException e) {
-                System.out.println("holaquepasa");
-            }catch(NullPointerException e){System.out.println("quepasa");}
+                System.out.println("No tienes permisos");
+            }catch(NullPointerException e){
+                // Esta excepción ocurre cuando en la funcion tamanyoDirectorio le pones un fichero sin permisos :)
+                System.out.println("No tienes permiso en la carpeta");
+            }
 
         } else {
             System.out.println("Inserta un fichero: java ejer2 <Fichero>");
