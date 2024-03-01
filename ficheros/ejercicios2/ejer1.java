@@ -29,7 +29,10 @@ public class ejer1 {
                 limpiarPantalla();
             } while (fichero.equals(""));
 
-            fichero += ".txt";
+            if (fichero.length()<4 || !fichero.substring(fichero.length() - 4).equals(".txt")) {
+                fichero += ".txt";
+            }
+            
 
             FileWriter in = new FileWriter(fichero);
             System.out.println("Escribe en el fichero: (fin para acabar)");
@@ -49,7 +52,7 @@ public class ejer1 {
         FileNotFoundException e1) {
             System.err.println("Error: No se encuentra el fichero");
         } catch (IOException e2) {
-            System.err.println("Error leyendo/escribiendo fichero");
+            System.err.println("Error: leyendo/escribiendo fichero");
         }
 
     }

@@ -56,8 +56,9 @@ public class ejer2 {
                 }
             } catch (SecurityException e) {
                 System.out.println("No tienes permisos");
-            }catch(NullPointerException e){
-                // Esta excepción ocurre cuando en la funcion tamanyoDirectorio le pones un fichero sin permisos :)
+            } catch (NullPointerException e) {
+                // Esta excepción ocurre cuando en la funcion tamanyoDirectorio le pones un
+                // fichero sin permisos :)
                 System.out.println("No tienes permiso en la carpeta");
             }
 

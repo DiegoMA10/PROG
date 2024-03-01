@@ -23,7 +23,7 @@ public class Pieza {
         return this.color.equals(p.color) &&
                 this.forma.equals(p.forma) &&
                 this.area() == p.area();
-        
+
     }
 
 }

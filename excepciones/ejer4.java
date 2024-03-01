@@ -1,8 +1,7 @@
 
-
 public class ejer4 {
     public static void main(String[] args) {
-       ValidaLista lista = new ValidaLista();
+        ValidaLista lista = new ValidaLista();
         try {
             System.out.println("Introduce un nombre de un compositor");
             int i = lista.ValidarCompositor();
@@ -10,6 +9,6 @@ public class ejer4 {
         } catch (ElementoNoExistente e) {
             System.out.println(e.getMessage());
         }
-       
+
     }
 }
