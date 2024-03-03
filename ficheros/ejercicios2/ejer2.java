@@ -1,5 +1,6 @@
 package ficheros.ejercicios2;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -76,8 +77,6 @@ public class ejer2 {
         } catch (IOException e) {
 
             System.out.println(e.getMessage());
-        } catch (SecurityException e2) {
-            System.out.println(e2.getMessage());
         }
 
     }

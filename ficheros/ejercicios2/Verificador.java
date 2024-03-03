@@ -1,4 +1,4 @@
-package ficheros.ejercicios2;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +15,7 @@ public class Verificador {
     private FileReader reader;
     private HashMap<String, String> mapa = new HashMap<>();
 
-    public Verificador(String fichero)throws SecurityException, IOException {
+    public Verificador(String fichero) throws IOException {
 
         try {
             this.fichero = new File(fichero);
@@ -26,8 +26,6 @@ public class Verificador {
 
             throw new IOException("Error: entrada/salida");
 
-        } catch (SecurityException e) {
-            throw new SecurityException("No tienes permisos");
         }
 
     }
@@ -41,7 +39,7 @@ public class Verificador {
         return this.mapa.get(u).equals(p);
     }
 
-    private void asignarMapa() throws SecurityException, IOException {
+    private void asignarMapa() throws IOException {
         BufferedReader br = new BufferedReader(reader);
 
         try {
@@ -57,21 +55,16 @@ public class Verificador {
         } catch (IOException e) {
 
             throw new IOException("Error: entrada/salida");
-        } catch (SecurityException e) {
-            throw new SecurityException("No tienes permisos");
         }
-
     }
 
-    public void introDatos(String u, String p) throws SecurityException, IOException {
+    public void introDatos(String u, String p) throws IOException {
         try {
             this.write.write(u + ":" + p + "\n");
             write.close();
         } catch (IOException e) {
 
             throw new IOException("Error: entrada/salida");
-        } catch (SecurityException e) {
-            throw new SecurityException("No tienes permisos");
         }
     }
 
