@@ -1,6 +1,8 @@
 package ficheros.ejercicios2;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,22 +11,71 @@ import java.util.regex.Pattern;
 
 public class Verificador {
     private File fichero;
-    private HashMap <String,String> mapa;
+    private FileWriter write;
+    private FileReader reader;
+    private HashMap<String, String> mapa = new HashMap<>();
 
+    public Verificador(String fichero)throws SecurityException, IOException {
 
-    public Verificador(String fichero){
-
-        this.fichero = new File(fichero);
-
-        try (FileWriter in = new FileWriter(this.fichero , true)) {
-                        
+        try {
+            this.fichero = new File(fichero);
+            this.write = new FileWriter(fichero, true);
+            this.reader = new FileReader(fichero);
+            asignarMapa();
         } catch (IOException e) {
-            e.printStackTrace();
+
+            throw new IOException("Error: entrada/salida");
+
+        } catch (SecurityException e) {
+            throw new SecurityException("No tienes permisos");
+        }
+
+    }
+
+    public boolean contieneUsuario(String u) {
+
+        return mapa.containsKey(u);
+    }
+
+    public boolean confiPass(String u, String p) {
+        return this.mapa.get(u).equals(p);
+    }
+
+    private void asignarMapa() throws SecurityException, IOException {
+        BufferedReader br = new BufferedReader(reader);
+
+        try {
+            String linea;
+            linea = br.readLine();
+            while (linea != null) {
+
+                String[] parte = linea.split(":");
+                this.mapa.put(parte[0], parte[1]);
+                linea = br.readLine();
+            }
+            br.close();
+        } catch (IOException e) {
+
+            throw new IOException("Error: entrada/salida");
+        } catch (SecurityException e) {
+            throw new SecurityException("No tienes permisos");
+        }
+
+    }
+
+    public void introDatos(String u, String p) throws SecurityException, IOException {
+        try {
+            this.write.write(u + ":" + p + "\n");
+            write.close();
+        } catch (IOException e) {
+
+            throw new IOException("Error: entrada/salida");
+        } catch (SecurityException e) {
+            throw new SecurityException("No tienes permisos");
         }
     }
 
-    
-    public boolean VeriUsuario(String usuario){
+    public boolean VeriUsuario(String usuario) {
         String expresionRegular = "^[\\w_-]{2,16}$";
         Pattern p = Pattern.compile(expresionRegular);
         Matcher m = p.matcher(usuario);
@@ -32,11 +83,12 @@ public class Verificador {
         return m.matches();
     }
 
-    public boolean VeriPass(String pass){
+    public boolean VeriPass(String pass) {
         String expresionRegular = "^[\\w!@#%&?*]+$";
         Pattern p = Pattern.compile(expresionRegular);
         Matcher m = p.matcher(pass);
 
         return m.matches();
     }
+
 }
