@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.Buffer;
 
 public class cifrado {
@@ -23,18 +25,24 @@ public class cifrado {
             System.out.println(e.getMessage());
          }
 
-         String archivoSalida = archivo.substring(0, archivo.indexOf(".")) + ".cf" + num;
+         if (archivo.length() < 4 || !archivo.substring(archivo.length() - 4).equals(".txt")) {
+            archivo = archivo + ".txt";
+         }
+
+             String archivoSalida = archivo.substring(0, archivo.indexOf(".")) + ".cf" + num;
+         
+        
         
          try (BufferedReader br = new BufferedReader(new FileReader(archivo));
                BufferedWriter bw = new BufferedWriter(new FileWriter(archivoSalida))) {
             Codificador codi = new Codificador(num);
             int letra;
-            int numero = 1;
+        
             while ((letra = br.read()) != -1) {
 
                bw.write(codi.codificar((char) letra));
                bw.flush();
-               numero++;
+               
 
             }
            
@@ -42,9 +50,14 @@ public class cifrado {
             bw.close();
             br.close();
 
-         } catch (Exception e) {
+         } catch (FileNotFoundException e) {
+            System.out.println("El archivo no existe");
+         }catch (IOException e){
+            System.out.println("Error: Entrada/salida");
+         }catch (Exception e){
             System.out.println(e);
          }
+
       } else {
          System.out.println("Uso: java cifrado <nombre_archivo> <numero_desplazamiento>");
       }
