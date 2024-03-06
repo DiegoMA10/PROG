@@ -1,3 +1,4 @@
+package ficheros.ejercicios2;
 
 
 import java.io.BufferedReader;
