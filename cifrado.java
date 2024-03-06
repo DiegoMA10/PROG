@@ -5,8 +5,10 @@ import java.io.FileWriter;
 import java.nio.Buffer;
 
 public class cifrado {
+
    public static void main(String[] args) {
       if (args.length == 2) {
+
          String archivo = args[0];
          int num = 0;
 
@@ -21,42 +23,27 @@ public class cifrado {
             System.out.println(e.getMessage());
          }
 
-         if (archivo.length() < 4 || !archivo.substring(archivo.length() - 4).equals(".txt")) {
-            archivo = archivo + ".txt";
-         }
-
          String archivoSalida = archivo.substring(0, archivo.indexOf(".")) + ".cf" + num;
-         System.out.println((int)'ñ');
+        
          try (BufferedReader br = new BufferedReader(new FileReader(archivo));
                BufferedWriter bw = new BufferedWriter(new FileWriter(archivoSalida))) {
-                  int letra;
-                  char letraCifrada=0;
+            Codificador codi = new Codificador(num);
+            int letra;
+            int numero = 1;
+            while ((letra = br.read()) != -1) {
 
-                  while ((letra = br.read()) != -1) {
+               bw.write(codi.codificar((char) letra));
+               bw.flush();
+               numero++;
 
-                     if (Character.isLetter(letra)) {
+            }
+           
 
-                        if (Character.isUpperCase(letra)) {
-                            letraCifrada = (char)((65+((letra+num-65)%26)));
-                        }
-
-                        if (Character.isLowerCase(letra)) {
-                          letraCifrada = (char)(97+(letra+num-97)%26);
-                        }
-                        
-                        
-                        bw.write(letraCifrada);
-                        bw.flush();
-                     }else{
-                        bw.write(letra);
-                        bw.flush();
-                     }
-                  }
-                  bw.close();
-                  br.close();
+            bw.close();
+            br.close();
 
          } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println(e);
          }
       } else {
          System.out.println("Uso: java cifrado <nombre_archivo> <numero_desplazamiento>");
