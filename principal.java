@@ -12,7 +12,7 @@ public class principal {
 
     public static void main(String[] args) {
         clearScreen();
-  
+        GestionarDB db = new GestionarDB();
         Scanner sc = new Scanner(System.in);
         boolean salida = true;
         try {
@@ -22,8 +22,8 @@ public class principal {
             System.out.print("---> ");
             String num = sc.nextLine();
             switch (num) {
-                case "1": altaVuelo(); clearScreen();break;
-                case "2": clearScreen(); break;
+                case "1": db.altaVuelo(); break;
+                case "2":clearScreen();break;
                 case "3":clearScreen();break;
                 case "4":clearScreen();break;
                 case "5":clearScreen();break;
@@ -40,32 +40,4 @@ public class principal {
 
     }
 
-    public static void altaVuelo() throws SQLException {
-  
-        try {
-            Scanner sc = new Scanner(System.in);
-            Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/reserva_vuelos", "root","dbrootpass");
-            Statement st = con.createStatement();
-            System.out.print("Introduce un origen: ");
-            String origen = sc.nextLine();
-
-            System.out.print("Introduce un destino: ");
-            String destino = sc.nextLine();
-
-            System.out.print("Introduce una fecha: ");
-            String fecha = sc.nextLine();
-
-            System.out.print("Introduce una capacidad: ");
-            int capacidad = sc.nextInt();
-
-            String sql = "INSERT INTO Vuelos (origen, destino, fecha, capacidad) VALUES ('"+origen+"', '"+destino+"', '"+fecha+"', "+capacidad+")";
-
-            st.executeUpdate(sql);
-            
-        } catch (SQLException e) {
-           
-           throw new SQLException();
-        }
-
-    }
 }
