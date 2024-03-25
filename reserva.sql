@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `reserva_vuelos` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `reserva_vuelos`;
--- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: reserva_vuelos
+-- Host: localhost    Database: reserva_vuelos
 -- ------------------------------------------------------
--- Server version	8.0.35
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,82 +18,80 @@ USE `reserva_vuelos`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Pasajeros`
+-- Table structure for table `pasajeros`
 --
 
-DROP TABLE IF EXISTS `Pasajeros`;
+DROP TABLE IF EXISTS `pasajeros`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Pasajeros` (
-  `id_pasajero` int NOT NULL AUTO_INCREMENT,
-  `numero_pasaporte` varchar(20) DEFAULT NULL,
+CREATE TABLE `pasajeros` (
+  `numero_pasaporte` varchar(20) NOT NULL,
   `nombre_pasajero` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id_pasajero`)
+  PRIMARY KEY (`numero_pasaporte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Pasajeros`
+-- Dumping data for table `pasajeros`
 --
 
-LOCK TABLES `Pasajeros` WRITE;
-/*!40000 ALTER TABLE `Pasajeros` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Pasajeros` ENABLE KEYS */;
+LOCK TABLES `pasajeros` WRITE;
+/*!40000 ALTER TABLE `pasajeros` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pasajeros` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Vuelos`
+-- Table structure for table `vuelos`
 --
 
-DROP TABLE IF EXISTS `Vuelos`;
+DROP TABLE IF EXISTS `vuelos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Vuelos` (
-  `id_vuelo` int NOT NULL AUTO_INCREMENT,
-  `origen` varchar(50) DEFAULT NULL,
-  `destino` varchar(50) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `capacidad` int DEFAULT NULL,
+CREATE TABLE `vuelos` (
+  `id_vuelo` varchar(10) NOT NULL,
+  `origen` varchar(50) NOT NULL,
+  `destino` varchar(50) NOT NULL,
+  `fecha` date NOT NULL,
+  `capacidad` int NOT NULL,
   PRIMARY KEY (`id_vuelo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Vuelos`
+-- Dumping data for table `vuelos`
 --
 
-LOCK TABLES `Vuelos` WRITE;
-/*!40000 ALTER TABLE `Vuelos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Vuelos` ENABLE KEYS */;
+LOCK TABLES `vuelos` WRITE;
+/*!40000 ALTER TABLE `vuelos` DISABLE KEYS */;
+INSERT INTO `vuelos` VALUES ('IV1','123','123','2002-02-02',123);
+/*!40000 ALTER TABLE `vuelos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Vuelos_Pasajeros`
+-- Table structure for table `vuelos_pasajeros`
 --
 
-DROP TABLE IF EXISTS `Vuelos_Pasajeros`;
+DROP TABLE IF EXISTS `vuelos_pasajeros`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Vuelos_Pasajeros` (
-  `id_vuelo` int NOT NULL,
-  `id_pasajero` int NOT NULL,
+CREATE TABLE `vuelos_pasajeros` (
+  `id_vuelo` varchar(10) NOT NULL,
+  `pasaporte` varchar(20) NOT NULL,
   `n_asiento` int NOT NULL,
-  `id_reserva` varchar(45) NOT NULL,
+  `id_reserva` varchar(10) NOT NULL,
   PRIMARY KEY (`id_reserva`),
   KEY `Vuelos_Pasajeros_ibfk_1` (`id_vuelo`),
-  KEY `Vuelos_Pasajeros_ibfk_2` (`id_pasajero`),
-  CONSTRAINT `Vuelos_Pasajeros_ibfk_1` FOREIGN KEY (`id_vuelo`) REFERENCES `Vuelos` (`id_vuelo`),
-  CONSTRAINT `Vuelos_Pasajeros_ibfk_2` FOREIGN KEY (`id_pasajero`) REFERENCES `Pasajeros` (`id_pasajero`)
+  KEY `Vuelos_Pasajeros_ibfk_2` (`pasaporte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Vuelos_Pasajeros`
+-- Dumping data for table `vuelos_pasajeros`
 --
 
-LOCK TABLES `Vuelos_Pasajeros` WRITE;
-/*!40000 ALTER TABLE `Vuelos_Pasajeros` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Vuelos_Pasajeros` ENABLE KEYS */;
+LOCK TABLES `vuelos_pasajeros` WRITE;
+/*!40000 ALTER TABLE `vuelos_pasajeros` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vuelos_pasajeros` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -105,4 +103,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-21 18:23:43
+-- Dump completed on 2024-03-25  1:16:42
