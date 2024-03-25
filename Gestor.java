@@ -11,7 +11,8 @@ public class Gestor {
 
     public Gestor() {
         try {
-            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva_vuelos", "root", "123");
+            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/reserva_vuelos", "root", "dbrootpass");
+           // this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva_vuelos", "root", "123");
         } catch (SQLException e) {
 
             e.printStackTrace();
@@ -70,7 +71,7 @@ public class Gestor {
                 }
             } while (capacidad <= 0);
 
-            String consulta = "SELECT id_vuelo FROM Vuelos order by length(id_vuelo) ;";
+            String consulta = "SELECT id_vuelo FROM uelos order by length(id_vuelo) ;";
             ResultSet resultado = st.executeQuery(consulta);
             String idVuelo = "IV1";
             Boolean salida = false;
@@ -85,7 +86,7 @@ public class Gestor {
                 }
 
             }
-            String sql = "INSERT INTO Vuelos (id_vuelo,origen, destino, fecha, capacidad) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO vuelos (id_vuelo,origen, destino, fecha, capacidad) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, idVuelo);
             ps.setString(2, origen);
@@ -99,6 +100,7 @@ public class Gestor {
         } catch (SQLException e) {
 
             e.printStackTrace();
+            sc.nextLine();
         }
 
     }
@@ -127,5 +129,8 @@ public class Gestor {
        sc.nextLine();
     } 
 
+    }
+    public void reservaVuelos(){
+        
     }
 }
