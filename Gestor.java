@@ -2,6 +2,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Gestor {
@@ -11,8 +12,8 @@ public class Gestor {
 
     public Gestor() {
         try {
-            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/reserva_vuelos", "root", "dbrootpass");
-           // this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva_vuelos", "root", "123");
+            //this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/reserva_vuelos", "root", "dbrootpass");
+            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva_vuelos", "root", "123");
         } catch (SQLException e) {
 
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class Gestor {
                 }
             } while (capacidad <= 0);
 
-            String consulta = "SELECT id_vuelo FROM uelos order by length(id_vuelo) ;";
+            String consulta = "SELECT id_vuelo FROM vuelos order by length(id_vuelo) ;";
             ResultSet resultado = st.executeQuery(consulta);
             String idVuelo = "IV1";
             Boolean salida = false;
@@ -130,7 +131,44 @@ public class Gestor {
     } 
 
     }
+
+    
     public void reservaVuelos(){
+        HashMap <String,Vuelo> vuelos = new HashMap<>();
+
+        String sql = "SELECT * FROM vuelos " ;
+        try {
+      
+        Statement st = con.createStatement();
+        ResultSet rt = st.executeQuery(sql);
+     
+        while (rt.next()) {
+           
+            vuelos.put(rt.getString(1), new Vuelo(rt.getString(1), rt.getString(2), rt.getString(3),  rt.getDate(4), rt.getInt(5)));
+        } 
         
+        for (Vuelo v : vuelos.values()) {
+            System.out.println(v);
+        }
+
+        System.out.print("Elige un vuelo (IV*): ");
+        String id = sc.nextLine();
+
+        if (vuelos.containsKey(id.toUpperCase())) {
+            System.out.println("hola");
+            sc.nextLine();
+        }else{
+
+            System.out.println("No existe el vuelo");
+            sc.nextLine();
+        }
+       
+
+    
+       
+        } catch (SQLException e) {
+            System.out.println(e);
+            sc.nextLine();
+        }
     }
 }

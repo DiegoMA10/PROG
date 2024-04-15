@@ -22,7 +22,7 @@ public class principal {
             switch (num) {
                 case "1": db.altaVuelo();clearScreen(); break;
                 case "2":db.altaPasajero();clearScreen();break;
-                case "3":clearScreen();break;
+                case "3":db.reservaVuelos();clearScreen();break;
                 case "4":clearScreen();break;
                 case "5":clearScreen();break;
                 case "6":clearScreen(); salida = false;break;
