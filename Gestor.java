@@ -1,7 +1,5 @@
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -12,8 +10,8 @@ public class Gestor {
 
     public Gestor() {
         try {
-            //this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/reserva_vuelos", "root", "dbrootpass");
-            this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva_vuelos", "root", "123");
+           //con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/reserva_vuelos", "root", "dbrootpass");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/reserva_vuelos", "root", "123");
         } catch (SQLException e) {
 
             e.printStackTrace();
@@ -155,7 +153,18 @@ public class Gestor {
         String id = sc.nextLine();
 
         if (vuelos.containsKey(id.toUpperCase())) {
-            System.out.println("hola");
+            System.out.println("Introduzca tu numero de pasaporte:");
+            String pasaporte = sc.nextLine();
+            String sql2 = "SELECT numero_pasaporte FROM pasajeros WHERE numero_pasaporte=?";
+            PreparedStatement st2 = con.prepareStatement(sql2);
+            st2.setString(1, pasaporte);
+            ResultSet rt2 = st2.executeQuery(); 
+            if (rt2.next()) {
+                System.out.println("hola");
+            }else{
+                System.out.println("El pasaporte no existe");
+            }
+
             sc.nextLine();
         }else{
 

@@ -36,7 +36,9 @@ public class Login {
         assert usuario != null : "fx:id=\"usuario\" was not injected: check your FXML file 'login.fxml'.";
         assert validar != null : "fx:id=\"validar\" was not injected: check your FXML file 'login.fxml'.";
         try {
-            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/login", "root", "dbrootpass");
+            //this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/login", "root", "dbrootpass");
+            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/login", "root", "123");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,8 +63,8 @@ public class Login {
                     alert.showAndWait();
                 }else{
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setContentText("ACCESO CONCEDIDO");
-                alert.showAndWait();
+                    alert.setContentText("ACCESO CONCEDIDO");
+                    alert.showAndWait();
                 }
                 
 
