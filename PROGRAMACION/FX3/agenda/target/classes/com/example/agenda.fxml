@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Agenda">
+   <children>
+      <Label layoutX="185.0" layoutY="124.0" prefHeight="54.0" prefWidth="198.0" text="Empleados" textFill="#4e1db9">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="123.0" layoutY="207.0" prefHeight="26.0" prefWidth="91.0" text="idEmpleado" />
+      <Label layoutX="142.0" layoutY="252.0" text="Nombre" />
+      <Label layoutX="140.0" layoutY="302.0" text="Apellidos" />
+      <Label alignment="CENTER_RIGHT" layoutX="139.0" layoutY="348.0" prefHeight="26.0" prefWidth="59.0" text="Telefono" />
+      <Label alignment="CENTER" layoutX="80.0" layoutY="397.0" prefHeight="26.0" prefWidth="124.0" text="Fecha Nacimiento" textAlignment="RIGHT" />
+      <Label layoutX="152.0" layoutY="454.0" prefHeight="16.0" prefWidth="52.0" text="Cargo" />
+      <TextField fx:id="idEmpleado" layoutX="216.0" layoutY="208.0" prefHeight="24.0" prefWidth="243.0" />
+      <TextField fx:id="nombre" layoutX="215.0" layoutY="248.0" prefHeight="24.0" prefWidth="243.0" />
+      <TextField fx:id="apellidos" layoutX="216.0" layoutY="298.0" prefHeight="24.0" prefWidth="243.0" />
+      <TextField fx:id="telefono" layoutX="216.0" layoutY="349.0" prefHeight="24.0" prefWidth="243.0" />
+      <TextField fx:id="fechaNacimiento" layoutX="216.0" layoutY="398.0" prefHeight="24.0" prefWidth="243.0" />
+      <TextField fx:id="cargo" layoutX="214.0" layoutY="450.0" prefHeight="24.0" prefWidth="243.0" />
+      <Button fx:id="inicio" layoutX="136.0" layoutY="536.0" mnemonicParsing="false" onAction="#primerEmpleado" prefHeight="45.0" prefWidth="71.0" text="ini" />
+      <Button fx:id="anterior" layoutX="235.0" layoutY="536.0" mnemonicParsing="false" onAction="#anteriorEmpleado" prefHeight="45.0" prefWidth="71.0" text="&lt;" />
+      <Button fx:id="siguiente" layoutX="337.0" layoutY="536.0" mnemonicParsing="false" onAction="#siguienteEmpleado" prefHeight="45.0" prefWidth="71.0" text="&gt;" />
+      <Button fx:id="fin" layoutX="431.0" layoutY="536.0" mnemonicParsing="false" onAction="#ultimoEmpleado" prefHeight="45.0" prefWidth="71.0" text="fin" />
+   </children>
+</AnchorPane>

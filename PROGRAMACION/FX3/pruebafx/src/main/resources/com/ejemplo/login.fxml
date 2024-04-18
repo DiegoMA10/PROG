@@ -21,8 +21,8 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <PasswordField fx:id="password" layoutX="293.0" layoutY="342.0" prefHeight="40.0" prefWidth="223.0" promptText="contraseña" />
       <TextField fx:id="usuario" layoutX="289.0" layoutY="263.0" prefHeight="40.0" prefWidth="223.0" promptText="Usuario" />
+      <PasswordField fx:id="password" layoutX="293.0" layoutY="342.0" prefHeight="40.0" prefWidth="223.0" promptText="contraseña" />
       <Button fx:id="validar" layoutX="351.0" layoutY="447.0" mnemonicParsing="false" onAction="#validarboton" prefHeight="40.0" prefWidth="80.0" text="Validar" />
       <ImageView fitHeight="243.0" fitWidth="315.0" layoutX="243.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>

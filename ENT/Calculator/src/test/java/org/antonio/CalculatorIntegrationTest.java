@@ -36,6 +36,27 @@ public class CalculatorIntegrationTest {
     public void testMultiplyAndDivide(){
         Calculator calc = new Calculator();
         assertEquals(25, calc.multiply(5, (int)calc.divide(25, 5)));
-        assertNotEquals(, 0);
+        assertNotEquals(1, (int)calc.divide(calc.multiply(5, 5), 1));
+        assertTrue(calc.multiply(10, (int)calc.divide(100, 10))==100);
+        assertFalse(calc.multiply(0, (int)calc.divide(123, 123))==1);
+    }
+
+
+    @Test
+    public void testMultiplyWithZero() {
+        Calculator calc = new Calculator();
+        assertEquals(0, calc.multiply(1, 0));
+        assertNotEquals(1, calc.multiply(0, 5));
+        assertTrue((calc.multiply(0, 25)) == 0);
+        assertFalse((calc.multiply(0,-25)) == 25);
+    }
+    
+    @Test
+    public void testDivideWithZero() {
+        Calculator calc = new Calculator();
+        assertEquals(0, calc.divide(0, 5), 0);
+        assertNotEquals(5, calc.divide(0, 5));
+        assertTrue((calc.divide(0, 25)) == 0);
+        assertFalse((calc.divide(0,-25)) == 25);
     }
 }
