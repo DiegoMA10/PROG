@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class Agenda {
@@ -24,9 +26,6 @@ public class Agenda {
 
     @FXML
     private TextField cargo;
-
-    @FXML
-    private TextField fechaNacimiento;
 
     @FXML
     private Button fin;
@@ -46,23 +45,15 @@ public class Agenda {
     @FXML
     private TextField telefono;
 
+    @FXML
+    private DatePicker fechita;
+
     private Connection con;
     private List<Empleado> lista = new ArrayList<>();
     private int cont = 0;
 
     @FXML
     void initialize() {
-        assert anterior != null : "fx:id=\"anterior\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert apellidos != null : "fx:id=\"apellidos\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert cargo != null : "fx:id=\"cargo\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert fechaNacimiento != null
-                : "fx:id=\"fechaNacimiento\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert fin != null : "fx:id=\"fin\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert idEmpleado != null : "fx:id=\"idEmpleado\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert inicio != null : "fx:id=\"inicio\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert nombre != null : "fx:id=\"nombre\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert siguiente != null : "fx:id=\"siguiente\" was not injected: check your FXML file 'agenda.fxml'.";
-        assert telefono != null : "fx:id=\"telefono\" was not injected: check your FXML file 'agenda.fxml'.";
 
         try {
             this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/agenda", "root", "dbrootpass");
@@ -82,9 +73,10 @@ public class Agenda {
         }
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
         nombre.setText(lista.get(cont).getNombre());
+        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
         apellidos.setText(lista.get(cont).getApellidos());
         telefono.setText(lista.get(cont).getTelefono());
-        fechaNacimiento.setText(String.valueOf(lista.get(cont).getFechaNacimiento()));
+
         cargo.setText(lista.get(cont).getCargo());
         inicio.setDisable(true);
         anterior.setDisable(true);
@@ -101,8 +93,9 @@ public class Agenda {
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
         nombre.setText(lista.get(cont).getNombre());
         apellidos.setText(lista.get(cont).getApellidos());
+        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
         telefono.setText(lista.get(cont).getTelefono());
-        fechaNacimiento.setText(String.valueOf(lista.get(0).getFechaNacimiento()));
+        ;
         cargo.setText(lista.get(cont).getCargo());
     }
 
@@ -116,14 +109,15 @@ public class Agenda {
         }
         siguiente.setDisable(false);
         fin.setDisable(false);
-      
+
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
         nombre.setText(lista.get(cont).getNombre());
         apellidos.setText(lista.get(cont).getApellidos());
         telefono.setText(lista.get(cont).getTelefono());
-        fechaNacimiento.setText(String.valueOf(lista.get(cont).getFechaNacimiento()));
+        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
+
         cargo.setText(lista.get(cont).getCargo());
-       
+
     }
 
     @FXML
@@ -140,7 +134,8 @@ public class Agenda {
         nombre.setText(lista.get(cont).getNombre());
         apellidos.setText(lista.get(cont).getApellidos());
         telefono.setText(lista.get(cont).getTelefono());
-        fechaNacimiento.setText(String.valueOf(lista.get(cont).getFechaNacimiento()));
+        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
+
         cargo.setText(lista.get(cont).getCargo());
 
     }
@@ -157,7 +152,8 @@ public class Agenda {
         nombre.setText(lista.get(cont).getNombre());
         apellidos.setText(lista.get(cont).getApellidos());
         telefono.setText(lista.get(cont).getTelefono());
-        fechaNacimiento.setText(String.valueOf(lista.get(cont).getFechaNacimiento()));
+        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
+
         cargo.setText(lista.get(cont).getCargo());
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,12 +23,14 @@
       <TextField fx:id="idEmpleado" layoutX="216.0" layoutY="208.0" prefHeight="24.0" prefWidth="243.0" />
       <TextField fx:id="nombre" layoutX="215.0" layoutY="248.0" prefHeight="24.0" prefWidth="243.0" />
       <TextField fx:id="apellidos" layoutX="216.0" layoutY="298.0" prefHeight="24.0" prefWidth="243.0" />
-      <TextField fx:id="telefono" layoutX="216.0" layoutY="349.0" prefHeight="24.0" prefWidth="243.0" />
-      <TextField fx:id="fechaNacimiento" layoutX="216.0" layoutY="398.0" prefHeight="24.0" prefWidth="243.0" />
+      <TextField fx:id="telefono" layoutX="214.0" layoutY="349.0" prefHeight="24.0" prefWidth="243.0" />
+      <DatePicker fx:id="fechita" layoutX="214.0" layoutY="398.0" prefHeight="24.0" prefWidth="243.0" />
       <TextField fx:id="cargo" layoutX="214.0" layoutY="450.0" prefHeight="24.0" prefWidth="243.0" />
       <Button fx:id="inicio" layoutX="136.0" layoutY="536.0" mnemonicParsing="false" onAction="#primerEmpleado" prefHeight="45.0" prefWidth="71.0" text="ini" />
       <Button fx:id="anterior" layoutX="235.0" layoutY="536.0" mnemonicParsing="false" onAction="#anteriorEmpleado" prefHeight="45.0" prefWidth="71.0" text="&lt;" />
       <Button fx:id="siguiente" layoutX="337.0" layoutY="536.0" mnemonicParsing="false" onAction="#siguienteEmpleado" prefHeight="45.0" prefWidth="71.0" text="&gt;" />
       <Button fx:id="fin" layoutX="431.0" layoutY="536.0" mnemonicParsing="false" onAction="#ultimoEmpleado" prefHeight="45.0" prefWidth="71.0" text="fin" />
+
+      
    </children>
 </AnchorPane>
