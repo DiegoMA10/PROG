@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 public class Agenda {
     @FXML
@@ -48,6 +49,15 @@ public class Agenda {
     @FXML
     private DatePicker fechita;
 
+    @FXML
+    private Button insertar;
+
+    @FXML
+    private Button modificar;
+
+    @FXML
+    private Button borrar;
+
     private Connection con;
     private List<Empleado> lista = new ArrayList<>();
     private int cont = 0;
@@ -71,15 +81,16 @@ public class Agenda {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
         nombre.setText(lista.get(cont).getNombre());
         fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
         apellidos.setText(lista.get(cont).getApellidos());
         telefono.setText(lista.get(cont).getTelefono());
-
         cargo.setText(lista.get(cont).getCargo());
         inicio.setDisable(true);
         anterior.setDisable(true);
+        insertar.setDisable(true);
 
     }
 
@@ -89,14 +100,19 @@ public class Agenda {
         anterior.setDisable(true);
         siguiente.setDisable(false);
         fin.setDisable(false);
+        insertar.setDisable(true);
+        modificar.setDisable(false);
+        borrar.setDisable(false);
+
         cont = 0;
+
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
         nombre.setText(lista.get(cont).getNombre());
         apellidos.setText(lista.get(cont).getApellidos());
         fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
         telefono.setText(lista.get(cont).getTelefono());
-        ;
         cargo.setText(lista.get(cont).getCargo());
+
     }
 
     @FXML
@@ -109,6 +125,9 @@ public class Agenda {
         }
         siguiente.setDisable(false);
         fin.setDisable(false);
+        insertar.setDisable(true);
+        modificar.setDisable(false);
+        borrar.setDisable(false);
 
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
         nombre.setText(lista.get(cont).getNombre());
@@ -130,12 +149,15 @@ public class Agenda {
         }
         inicio.setDisable(false);
         anterior.setDisable(false);
+        insertar.setDisable(true);
+        modificar.setDisable(false);
+        borrar.setDisable(false);
+
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
         nombre.setText(lista.get(cont).getNombre());
         apellidos.setText(lista.get(cont).getApellidos());
         telefono.setText(lista.get(cont).getTelefono());
         fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-
         cargo.setText(lista.get(cont).getCargo());
 
     }
@@ -146,6 +168,9 @@ public class Agenda {
         fin.setDisable(true);
         inicio.setDisable(false);
         anterior.setDisable(false);
+        insertar.setDisable(true);
+        modificar.setDisable(false);
+        borrar.setDisable(false);
 
         cont = lista.size() - 1;
         idEmpleado.setText(lista.get(cont).getIdEmpleado());
@@ -153,8 +178,49 @@ public class Agenda {
         apellidos.setText(lista.get(cont).getApellidos());
         telefono.setText(lista.get(cont).getTelefono());
         fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-
         cargo.setText(lista.get(cont).getCargo());
+
+    }
+
+    @FXML
+    void comprobarEmpleado(KeyEvent event) {
+        boolean salida = false;
+
+        for (Empleado empleado : lista) {
+
+            if (empleado.getIdEmpleado().equals(idEmpleado.getText())) {
+                salida = true;
+                
+            }
+        }
+
+        if (salida) {
+            insertar.setDisable(true);
+            modificar.setDisable(false);
+            borrar.setDisable(false);
+
+        } else {
+            insertar.setDisable(false);
+            modificar.setDisable(true);
+            borrar.setDisable(true);
+
+        }
+
+    }
+
+    @FXML
+    void borrarEmpleado(ActionEvent event) {
+   
+    }
+
+    @FXML
+    void insertarEmpleado(ActionEvent event) {
+
+    }
+
+    @FXML
+    void modificarEmpleado(ActionEvent event) {
+
     }
 
 }
