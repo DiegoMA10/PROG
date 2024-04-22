@@ -3,17 +3,23 @@ package com.example;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -60,7 +66,38 @@ public class Agenda {
 
     private Connection con;
     private List<Empleado> lista = new ArrayList<>();
+    private HashMap<String, Empleado> map = new HashMap<>();
     private int cont = 0;
+
+    private void cargarTexto() {
+        if (lista.isEmpty()) {
+            idEmpleado.setText("");
+            nombre.setText("");
+            fechita.setValue(null);
+            apellidos.setText("");
+            telefono.setText("");
+            cargo.setText("");
+        } else {
+            idEmpleado.setText(lista.get(cont).getIdEmpleado());
+            nombre.setText(lista.get(cont).getNombre());
+            fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
+            apellidos.setText(lista.get(cont).getApellidos());
+            telefono.setText(lista.get(cont).getTelefono());
+            cargo.setText(lista.get(cont).getCargo());
+        }
+
+    }
+
+    private void comprobarBotones() {
+        if (lista.isEmpty()) {
+            inicio.setDisable(true);
+            anterior.setDisable(true);
+            insertar.setDisable(false);
+            modificar.setDisable(true);
+            borrar.setDisable(true);
+            fin.setDisable(true);
+        }
+    }
 
     @FXML
     void initialize() {
@@ -76,18 +113,14 @@ public class Agenda {
             while (rs.next()) {
                 lista.add(new Empleado(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getDate(5), rs.getString(6)));
+                map.put(rs.getString(1), new Empleado(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getDate(5), rs.getString(6)));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        idEmpleado.setText(lista.get(cont).getIdEmpleado());
-        nombre.setText(lista.get(cont).getNombre());
-        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-        apellidos.setText(lista.get(cont).getApellidos());
-        telefono.setText(lista.get(cont).getTelefono());
-        cargo.setText(lista.get(cont).getCargo());
+        cargarTexto();
         inicio.setDisable(true);
         anterior.setDisable(true);
         insertar.setDisable(true);
@@ -106,12 +139,7 @@ public class Agenda {
 
         cont = 0;
 
-        idEmpleado.setText(lista.get(cont).getIdEmpleado());
-        nombre.setText(lista.get(cont).getNombre());
-        apellidos.setText(lista.get(cont).getApellidos());
-        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-        telefono.setText(lista.get(cont).getTelefono());
-        cargo.setText(lista.get(cont).getCargo());
+        cargarTexto();
 
     }
 
@@ -129,14 +157,7 @@ public class Agenda {
         modificar.setDisable(false);
         borrar.setDisable(false);
 
-        idEmpleado.setText(lista.get(cont).getIdEmpleado());
-        nombre.setText(lista.get(cont).getNombre());
-        apellidos.setText(lista.get(cont).getApellidos());
-        telefono.setText(lista.get(cont).getTelefono());
-        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-
-        cargo.setText(lista.get(cont).getCargo());
-
+        cargarTexto();
     }
 
     @FXML
@@ -152,13 +173,7 @@ public class Agenda {
         insertar.setDisable(true);
         modificar.setDisable(false);
         borrar.setDisable(false);
-
-        idEmpleado.setText(lista.get(cont).getIdEmpleado());
-        nombre.setText(lista.get(cont).getNombre());
-        apellidos.setText(lista.get(cont).getApellidos());
-        telefono.setText(lista.get(cont).getTelefono());
-        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-        cargo.setText(lista.get(cont).getCargo());
+        cargarTexto();
 
     }
 
@@ -173,12 +188,7 @@ public class Agenda {
         borrar.setDisable(false);
 
         cont = lista.size() - 1;
-        idEmpleado.setText(lista.get(cont).getIdEmpleado());
-        nombre.setText(lista.get(cont).getNombre());
-        apellidos.setText(lista.get(cont).getApellidos());
-        telefono.setText(lista.get(cont).getTelefono());
-        fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-        cargo.setText(lista.get(cont).getCargo());
+        cargarTexto();
 
     }
 
@@ -186,12 +196,9 @@ public class Agenda {
     void comprobarEmpleado(KeyEvent event) {
         boolean salida = false;
 
-        for (Empleado empleado : lista) {
+        if (map.containsKey(idEmpleado.getText())) {
+            salida = true;
 
-            if (empleado.getIdEmpleado().equals(idEmpleado.getText())) {
-                salida = true;
-                
-            }
         }
 
         if (salida) {
@@ -210,7 +217,32 @@ public class Agenda {
 
     @FXML
     void borrarEmpleado(ActionEvent event) {
-   
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Diálogo de confirmación");
+        alert.setHeaderText("Quiere borrar el empleado con la ID: " + idEmpleado.getText());
+        alert.setContentText("¿Seguro que quieres continuar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+            String sql = "DELETE FROM empleados WHERE idEmpleado = ?";
+
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, idEmpleado.getText());
+                ps.executeUpdate();
+                lista.remove(cont);
+                map.remove(idEmpleado.getText());
+                primerEmpleado(event);
+                Alert alerta = new Alert(AlertType.INFORMATION); // WARNING, ERROR
+                alerta.setTitle("Diálogo de información");
+                alerta.setContentText("Usuario borrado exitosamente");
+                alerta.showAndWait();
+
+            } catch (SQLException e) {
+
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
