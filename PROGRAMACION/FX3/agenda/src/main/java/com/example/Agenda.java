@@ -69,43 +69,13 @@ public class Agenda {
     private HashMap<String, Empleado> map = new HashMap<>();
     private int cont = 0;
 
-    private void cargarTexto() {
-        if (lista.isEmpty()) {
-            idEmpleado.setText("");
-            nombre.setText("");
-            fechita.setValue(null);
-            apellidos.setText("");
-            telefono.setText("");
-            cargo.setText("");
-        } else {
-            idEmpleado.setText(lista.get(cont).getIdEmpleado());
-            nombre.setText(lista.get(cont).getNombre());
-            fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
-            apellidos.setText(lista.get(cont).getApellidos());
-            telefono.setText(lista.get(cont).getTelefono());
-            cargo.setText(lista.get(cont).getCargo());
-        }
-
-    }
-
-    private void comprobarBotones() {
-        if (lista.isEmpty()) {
-            inicio.setDisable(true);
-            anterior.setDisable(true);
-            insertar.setDisable(false);
-            modificar.setDisable(true);
-            borrar.setDisable(true);
-            fin.setDisable(true);
-        }
-    }
-
+ 
     @FXML
     void initialize() {
 
         try {
-            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/agenda", "root", "dbrootpass");
-            // this.con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/agenda",
-            // "root", "123");
+            //this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/agenda", "root", "dbrootpass");
+            this.con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/agenda", "root", "123");
             Statement st = con.createStatement();
             String sql = "SELECT * FROM empleados";
             ResultSet rs = st.executeQuery(sql);
@@ -121,24 +91,15 @@ public class Agenda {
             e.printStackTrace();
         }
         cargarTexto();
-        inicio.setDisable(true);
-        anterior.setDisable(true);
-        insertar.setDisable(true);
+        comprobarBotones();
 
     }
 
     @FXML
     void primerEmpleado(ActionEvent event) {
-        inicio.setDisable(true);
-        anterior.setDisable(true);
-        siguiente.setDisable(false);
-        fin.setDisable(false);
-        insertar.setDisable(true);
-        modificar.setDisable(false);
-        borrar.setDisable(false);
-
+    
         cont = 0;
-
+        comprobarBotones();
         cargarTexto();
 
     }
@@ -146,49 +107,26 @@ public class Agenda {
     @FXML
     void anteriorEmpleado(ActionEvent event) {
         cont--;
-        if (cont == 0) {
-            inicio.setDisable(true);
-            anterior.setDisable(true);
-
-        }
-        siguiente.setDisable(false);
-        fin.setDisable(false);
-        insertar.setDisable(true);
-        modificar.setDisable(false);
-        borrar.setDisable(false);
-
+        comprobarBotones();
         cargarTexto();
     }
 
     @FXML
     void siguienteEmpleado(ActionEvent event) {
         cont++;
-        if (cont == lista.size() - 1) {
-            siguiente.setDisable(true);
-            fin.setDisable(true);
-
-        }
-        inicio.setDisable(false);
-        anterior.setDisable(false);
-        insertar.setDisable(true);
-        modificar.setDisable(false);
-        borrar.setDisable(false);
+        comprobarBotones();
         cargarTexto();
-
+        
     }
 
     @FXML
     void ultimoEmpleado(ActionEvent event) {
-        siguiente.setDisable(true);
-        fin.setDisable(true);
-        inicio.setDisable(false);
-        anterior.setDisable(false);
-        insertar.setDisable(true);
-        modificar.setDisable(false);
-        borrar.setDisable(false);
+        
 
-        cont = lista.size() - 1;
+        cont = lista.size() - 1;     
+        comprobarBotones();
         cargarTexto();
+   
 
     }
 
@@ -232,8 +170,12 @@ public class Agenda {
                 ps.executeUpdate();
                 lista.remove(cont);
                 map.remove(idEmpleado.getText());
-                primerEmpleado(event);
-                Alert alerta = new Alert(AlertType.INFORMATION); // WARNING, ERROR
+                if (lista.size()==cont) {
+                    cont=lista.size()-1;
+                }
+                comprobarBotones();
+                cargarTexto();
+                Alert alerta = new Alert(AlertType.INFORMATION); 
                 alerta.setTitle("Diálogo de información");
                 alerta.setContentText("Usuario borrado exitosamente");
                 alerta.showAndWait();
@@ -247,6 +189,7 @@ public class Agenda {
 
     @FXML
     void insertarEmpleado(ActionEvent event) {
+        String sql = "INSERT INTO empleados (`idEmpleado`, `Nombre`, `Apellidos`, `Telefono`, `Fecha_nacimiento`, `Cargo`) VALUES (?, ?, ?, ?, ?, ?)";
 
     }
 
@@ -254,5 +197,86 @@ public class Agenda {
     void modificarEmpleado(ActionEvent event) {
 
     }
+
+    private void cargarTexto() {
+        if (lista.isEmpty()) {
+            idEmpleado.setText("");
+            nombre.setText("");
+            fechita.setValue(null);
+            apellidos.setText("");
+            telefono.setText("");
+            cargo.setText("");
+        } else {
+            idEmpleado.setText(lista.get(cont).getIdEmpleado());
+            nombre.setText(lista.get(cont).getNombre());
+            fechita.setValue(lista.get(cont).getFechaNacimiento().toLocalDate());
+            apellidos.setText(lista.get(cont).getApellidos());
+            telefono.setText(lista.get(cont).getTelefono());
+            cargo.setText(lista.get(cont).getCargo());
+        }
+
+    }
+
+    private void comprobarBotones() {
+
+        if (lista.isEmpty()) {
+            inicio.setDisable(true);
+            anterior.setDisable(true);
+            insertar.setDisable(false);
+            siguiente.setDisable(true);
+            modificar.setDisable(true);
+            borrar.setDisable(true);
+            fin.setDisable(true);
+
+        }else{
+
+            
+            if (lista.size()==1) {
+                inicio.setDisable(true);
+                anterior.setDisable(true);
+                insertar.setDisable(true);
+                modificar.setDisable(false);
+                borrar.setDisable(false);
+                fin.setDisable(true);
+                siguiente.setDisable(true);
+
+            }else{ 
+
+                if (cont>0 && cont<lista.size()-1) {
+                inicio.setDisable(false);
+                anterior.setDisable(false);
+                insertar.setDisable(true);
+                modificar.setDisable(false);
+                borrar.setDisable(false);
+                fin.setDisable(false);
+                siguiente.setDisable(false);
+            }
+
+            if (cont==0) {
+                inicio.setDisable(true);
+                anterior.setDisable(true);
+                insertar.setDisable(true);
+                modificar.setDisable(false);
+                borrar.setDisable(false);
+                fin.setDisable(false);
+                siguiente.setDisable(false);
+            }
+
+            if (lista.size()-1==cont) {
+                inicio.setDisable(false);
+                anterior.setDisable(false);
+                insertar.setDisable(true);
+                modificar.setDisable(false);
+                borrar.setDisable(false);
+                fin.setDisable(true);
+                siguiente.setDisable(true);
+            }
+
+            }
+           
+            
+        }
+    }
+
 
 }
