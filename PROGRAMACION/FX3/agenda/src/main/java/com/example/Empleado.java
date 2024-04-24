@@ -44,4 +44,12 @@ public class Empleado {
         return cargo;
     }
 
+    public void actualizarEmpleado(String nombre, String apellidos, String telefono, Date fechaNacimiento,String cargo){
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
+        this.cargo = cargo;
+    }
+
 }

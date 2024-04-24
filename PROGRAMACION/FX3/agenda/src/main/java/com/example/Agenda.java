@@ -2,6 +2,7 @@ package com.example;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -69,13 +70,13 @@ public class Agenda {
     private HashMap<String, Empleado> map = new HashMap<>();
     private int cont = 0;
 
- 
     @FXML
     void initialize() {
 
         try {
-            //this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/agenda", "root", "dbrootpass");
-            this.con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/agenda", "root", "123");
+            // this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/agenda",
+            // "root", "dbrootpass");
+            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/agenda", "root", "123");
             Statement st = con.createStatement();
             String sql = "SELECT * FROM empleados";
             ResultSet rs = st.executeQuery(sql);
@@ -91,15 +92,12 @@ public class Agenda {
             e.printStackTrace();
         }
         cargarTexto();
-        comprobarBotones();
 
     }
 
     @FXML
     void primerEmpleado(ActionEvent event) {
-    
         cont = 0;
-        comprobarBotones();
         cargarTexto();
 
     }
@@ -107,48 +105,48 @@ public class Agenda {
     @FXML
     void anteriorEmpleado(ActionEvent event) {
         cont--;
-        comprobarBotones();
         cargarTexto();
     }
 
     @FXML
     void siguienteEmpleado(ActionEvent event) {
         cont++;
-        comprobarBotones();
         cargarTexto();
-        
+
     }
 
     @FXML
     void ultimoEmpleado(ActionEvent event) {
-        
-
-        cont = lista.size() - 1;     
-        comprobarBotones();
+        cont = lista.size() - 1;
         cargarTexto();
-   
-
     }
 
     @FXML
     void comprobarEmpleado(KeyEvent event) {
         boolean salida = false;
+        
+        if (!idEmpleado.getText().isEmpty()) {
+            
+            if (map.containsKey(idEmpleado.getText())) {
+                salida = true;
 
-        if (map.containsKey(idEmpleado.getText())) {
-            salida = true;
+            }
+            if (salida) {
+                insertar.setDisable(true);
+                modificar.setDisable(false);
+                borrar.setDisable(false);
 
-        }
+            } else {
+                insertar.setDisable(false);
+                modificar.setDisable(true);
+                borrar.setDisable(true);
 
-        if (salida) {
-            insertar.setDisable(true);
-            modificar.setDisable(false);
-            borrar.setDisable(false);
+            }
 
         } else {
-            insertar.setDisable(false);
+            insertar.setDisable(true);
             modificar.setDisable(true);
             borrar.setDisable(true);
-
         }
 
     }
@@ -170,12 +168,12 @@ public class Agenda {
                 ps.executeUpdate();
                 lista.remove(cont);
                 map.remove(idEmpleado.getText());
-                if (lista.size()==cont) {
-                    cont=lista.size()-1;
+                if (lista.size() == cont) {
+                    cont = lista.size() - 1;
                 }
-                comprobarBotones();
+
                 cargarTexto();
-                Alert alerta = new Alert(AlertType.INFORMATION); 
+                Alert alerta = new Alert(AlertType.INFORMATION);
                 alerta.setTitle("Diálogo de información");
                 alerta.setContentText("Usuario borrado exitosamente");
                 alerta.showAndWait();
@@ -191,14 +189,75 @@ public class Agenda {
     void insertarEmpleado(ActionEvent event) {
         String sql = "INSERT INTO empleados (`idEmpleado`, `Nombre`, `Apellidos`, `Telefono`, `Fecha_nacimiento`, `Cargo`) VALUES (?, ?, ?, ?, ?, ?)";
 
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Diálogo de confirmación");
+        String listaAlerta = "\nidEmpleado: "+idEmpleado.getText()+"\nNombre: "+nombre.getText()+"\nApellidos: "+apellidos.getText()+"\nTelefono: "+telefono.getText()+"\nFecha Nacimiento: "+ fechita.getValue().toString()+"\nCargo: "+cargo.getText();
+        alert.setHeaderText("Quiere añadir este empleado ?:"+listaAlerta);
+        alert.setContentText("¿Seguro que quieres continuar?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, idEmpleado.getText());
+                ps.setString(2, nombre.getText());
+                ps.setString(3, apellidos.getText());
+                ps.setString(4, telefono.getText());
+                ps.setDate(5, Date.valueOf(fechita.getValue()));
+                ps.setString(6, cargo.getText());
+                ps.executeUpdate();
+                lista.add(new Empleado(idEmpleado.getText(), nombre.getText(), apellidos.getText(), telefono.getText(),
+                        Date.valueOf(fechita.getValue()), cargo.getText()));
+                cont = lista.size() - 1;
+                cargarTexto();
+                Alert alerta = new Alert(AlertType.INFORMATION);
+                alerta.setTitle("Diálogo de información");
+                alerta.setContentText("Usuario añadido exitosamente");
+                alerta.showAndWait();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     void modificarEmpleado(ActionEvent event) {
+        String sql = "UPDATE empleados SET Nombre = ?, Apellidos = ?, Telefono = ?, Fecha_nacimiento = ?, Cargo = ? WHERE idEmpleado = ?";
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Diálogo de confirmación");
+        String listaAlerta = "\nidEmpleado: "+idEmpleado.getText()+"\nNombre: "+nombre.getText()+"\nApellidos: "+apellidos.getText()+"\nTelefono: "+telefono.getText()+"\nFecha Nacimiento: "+ fechita.getValue().toString()+"\nCargo: "+cargo.getText();
+        alert.setHeaderText("Quiere modificar el empleado: "+idEmpleado.getText()+"?"+listaAlerta);
+        alert.setContentText("¿Quieres aplicar estos cambios?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
 
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                
+                ps.setString(1, nombre.getText());
+                ps.setString(2, apellidos.getText());
+                ps.setString(3, telefono.getText());
+                ps.setDate(4, Date.valueOf(fechita.getValue()));
+                ps.setString(5, cargo.getText());
+                ps.setString(6, idEmpleado.getText());
+                ps.executeUpdate();
+                lista.get(cont).actualizarEmpleado(nombre.getText(),apellidos.getText(),telefono.getText(),Date.valueOf(fechita.getValue()),cargo.getText());
+                cargarTexto();
+                Alert alerta = new Alert(AlertType.INFORMATION);
+                alerta.setTitle("Diálogo de información");
+                alerta.setContentText("Usuario modificado exitosamente");
+                alerta.showAndWait();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
     }
 
     private void cargarTexto() {
+        comprobarBotones();
         if (lista.isEmpty()) {
             idEmpleado.setText("");
             nombre.setText("");
@@ -228,10 +287,9 @@ public class Agenda {
             borrar.setDisable(true);
             fin.setDisable(true);
 
-        }else{
+        } else {
 
-            
-            if (lista.size()==1) {
+            if (lista.size() == 1) {
                 inicio.setDisable(true);
                 anterior.setDisable(true);
                 insertar.setDisable(true);
@@ -240,43 +298,41 @@ public class Agenda {
                 fin.setDisable(true);
                 siguiente.setDisable(true);
 
-            }else{ 
+            } else {
 
-                if (cont>0 && cont<lista.size()-1) {
-                inicio.setDisable(false);
-                anterior.setDisable(false);
-                insertar.setDisable(true);
-                modificar.setDisable(false);
-                borrar.setDisable(false);
-                fin.setDisable(false);
-                siguiente.setDisable(false);
+                if (cont > 0 && cont < lista.size() - 1) {
+                    inicio.setDisable(false);
+                    anterior.setDisable(false);
+                    insertar.setDisable(true);
+                    modificar.setDisable(false);
+                    borrar.setDisable(false);
+                    fin.setDisable(false);
+                    siguiente.setDisable(false);
+                }
+
+                if (cont == 0) {
+                    inicio.setDisable(true);
+                    anterior.setDisable(true);
+                    insertar.setDisable(true);
+                    modificar.setDisable(false);
+                    borrar.setDisable(false);
+                    fin.setDisable(false);
+                    siguiente.setDisable(false);
+                }
+
+                if (lista.size() - 1 == cont) {
+                    inicio.setDisable(false);
+                    anterior.setDisable(false);
+                    insertar.setDisable(true);
+                    modificar.setDisable(false);
+                    borrar.setDisable(false);
+                    fin.setDisable(true);
+                    siguiente.setDisable(true);
+                }
+
             }
 
-            if (cont==0) {
-                inicio.setDisable(true);
-                anterior.setDisable(true);
-                insertar.setDisable(true);
-                modificar.setDisable(false);
-                borrar.setDisable(false);
-                fin.setDisable(false);
-                siguiente.setDisable(false);
-            }
-
-            if (lista.size()-1==cont) {
-                inicio.setDisable(false);
-                anterior.setDisable(false);
-                insertar.setDisable(true);
-                modificar.setDisable(false);
-                borrar.setDisable(false);
-                fin.setDisable(true);
-                siguiente.setDisable(true);
-            }
-
-            }
-           
-            
         }
     }
-
 
 }
