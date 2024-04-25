@@ -40,5 +40,13 @@ public class Heroe {
         this.biografia = biografia;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     
 }
