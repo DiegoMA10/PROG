@@ -9,7 +9,6 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="95.0" layoutY="100.0" prefHeight="62.0" prefWidth="276.0" text="DinoDAM Park">
@@ -41,7 +40,7 @@
       <Button layoutX="85.0" layoutY="207.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Button" />
       <Button layoutX="85.0" layoutY="273.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Button" />
       <Button layoutX="85.0" layoutY="335.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Button" />
-      <Button ellipsisString="" layoutX="476.0" layoutY="316.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0" text="Button">
+      <Button ellipsisString="" layoutX="477.0" layoutY="315.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0">
          <graphic>
             <ImageView fitHeight="28.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
