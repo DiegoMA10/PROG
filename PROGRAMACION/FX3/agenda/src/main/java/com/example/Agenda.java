@@ -74,9 +74,8 @@ public class Agenda {
     void initialize() {
 
         try {
-            // this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/agenda",
-            // "root", "dbrootpass");
-            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/agenda", "root", "123");
+            this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/agenda","root", "dbrootpass");
+           // this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/agenda", "root", "123");
             Statement st = con.createStatement();
             String sql = "SELECT * FROM empleados";
             ResultSet rs = st.executeQuery(sql);
