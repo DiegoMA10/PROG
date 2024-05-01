@@ -1,4 +1,5 @@
 
+
 import java.util.Scanner;
 
 public class principal {
@@ -21,9 +22,9 @@ public class principal {
                 case "1": db.altaVuelo();clearScreen(); break;
                 case "2":db.altaPasajero();clearScreen();break;
                 case "3":db.reservaVuelos();clearScreen();break;
-                case "4":clearScreen();break;
-                case "5":clearScreen();break;
-                case "6":clearScreen(); salida = false;break;
+                case "4":db.modificarReserva();clearScreen();break;
+                case "5":db.bajaReserva();clearScreen();break;
+                case "6":; salida = false;break;
                 default: clearScreen();break;
             }
           

@@ -78,7 +78,7 @@ CREATE TABLE `vuelos_pasajeros` (
   `id_vuelo` varchar(10) NOT NULL,
   `pasaporte` varchar(20) NOT NULL,
   `n_asiento` int NOT NULL,
-  `id_reserva` varchar(10) NOT NULL,
+  `id_reserva` varchar(15) NOT NULL,
   PRIMARY KEY (`id_reserva`),
   KEY `Vuelos_Pasajeros_ibfk_1` (`id_vuelo`),
   KEY `Vuelos_Pasajeros_ibfk_2` (`pasaporte`)
