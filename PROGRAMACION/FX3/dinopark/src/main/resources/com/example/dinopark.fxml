@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Dinopark">
    <children>
-      <Label layoutX="95.0" layoutY="100.0" prefHeight="62.0" prefWidth="276.0" text="DinoDAM Park">
+      <Label layoutX="95.0" layoutY="100.0" prefHeight="70.0" prefWidth="285.0" text="DinoDAM Park">
          <font>
             <Font size="32.0" />
          </font>
@@ -37,14 +38,21 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Button layoutX="85.0" layoutY="207.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Button" />
-      <Button layoutX="85.0" layoutY="273.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Button" />
-      <Button layoutX="85.0" layoutY="335.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Button" />
-      <Button ellipsisString="" layoutX="477.0" layoutY="315.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="88.0">
+      <Button fx:id="crearAtraccion" layoutX="85.0" layoutY="207.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Crear Una Atraccion" />
+      <Button fx:id="listarDinosaurios" layoutX="85.0" layoutY="273.0" mnemonicParsing="false" onAction="#listarDinosaurios" prefHeight="39.0" prefWidth="234.0" text="Listar dinosaurios" />
+      <Button fx:id="ListarZonas" layoutX="85.0" layoutY="335.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Listar zonas" />
+      <Button fx:id="salir" ellipsisString="" layoutX="486.0" layoutY="344.0" mnemonicParsing="false" onAction="#salir" prefHeight="54.0" prefWidth="110.0">
          <graphic>
-            <ImageView fitHeight="28.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="28.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@puertaexit.png" />
+               </image>
+            </ImageView>
          </graphic>
       </Button>
-      <ImageView fitHeight="206.0" fitWidth="253.0" layoutX="394.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="227.0" fitWidth="402.0" layoutX="394.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@dinopark.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>
