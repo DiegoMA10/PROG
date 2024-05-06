@@ -38,7 +38,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Button fx:id="crearAtraccion" layoutX="85.0" layoutY="207.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Crear Una Atraccion" />
+      <Button fx:id="crearAtraccion" layoutX="85.0" layoutY="207.0" mnemonicParsing="false" onAction="#crearAtraccion" prefHeight="39.0" prefWidth="234.0" text="Crear Una Atraccion" />
       <Button fx:id="listarDinosaurios" layoutX="85.0" layoutY="273.0" mnemonicParsing="false" onAction="#listarDinosaurios" prefHeight="39.0" prefWidth="234.0" text="Listar dinosaurios" />
       <Button fx:id="ListarZonas" layoutX="85.0" layoutY="335.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="234.0" text="Listar zonas" />
       <Button fx:id="salir" ellipsisString="" layoutX="486.0" layoutY="344.0" mnemonicParsing="false" onAction="#salir" prefHeight="54.0" prefWidth="110.0">

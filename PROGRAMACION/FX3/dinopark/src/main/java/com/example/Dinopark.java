@@ -2,6 +2,8 @@ package com.example;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,8 @@ public class Dinopark {
     @FXML
     private Button salir;
 
+    private static Connection con ;
+
     @FXML
     void listarDinosaurios(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -41,13 +45,39 @@ public class Dinopark {
     }
 
     @FXML
+    void crearAtraccion(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setWidth(800);
+        stage.setHeight(550);
+
+        App.setRoot("crearZona");
+       
+
+    }
+
+    @FXML
     void salir(ActionEvent event) {
         System.exit(0);
     }
 
     @FXML
     void initialize() {
+    
+       con = crearConexion("33006", "JurassicPark", "root", "dbrootpass");
+        //crearConexion("33006", "JurassicPark", "root", "123");
+    }
 
+     public static Connection crearConexion(String puerto, String baseDatos, String usuario, String passwd) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/JurassicPark","root", "dbrootpass");
+            return con;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Connection getCon() {
+        return con;
     }
 
 }
