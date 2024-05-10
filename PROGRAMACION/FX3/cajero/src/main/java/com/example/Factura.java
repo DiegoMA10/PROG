@@ -1,19 +1,19 @@
 package com.example;
 
 public class Factura {
-    private String numFactura;
+    private int numFactura;
     private String nif;
-    private String numHabitacion;
+    private int numHabitacion;
     private double importe;
 
-    public Factura(String numFactura, String nif, String numHabitacion, double importe) {
+    public Factura(int numFactura, String nif, int numHabitacion, double importe) {
         this.numFactura = numFactura;
         this.nif = nif;
         this.numHabitacion = numHabitacion;
         this.importe = importe;
     }
 
-    public String getNumFactura() {
+    public int getNumFactura() {
         return numFactura;
     }
 
@@ -21,7 +21,7 @@ public class Factura {
         return nif;
     }
 
-    public String getNumHabitacion() {
+    public int getNumHabitacion() {
         return numHabitacion;
     }
 

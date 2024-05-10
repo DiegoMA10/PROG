@@ -22,12 +22,14 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static Scene scene;
-    public static HashMap<String,Cliente> listaClientes = new HashMap<>();
+   
     private static Connection con;
+
+    public static Cliente cliente;
 
     @Override
     public void start(Stage stage) throws IOException {
-         setUpClientes();
+        
         scene = new Scene(loadFXML("primary") );
        
         stage.setScene(scene); 
@@ -36,7 +38,6 @@ public class App extends Application {
     }
 
     static void setRoot(String fxml) throws IOException {
-        System.out.println("Cargando escena: " + fxml);
         scene.setRoot(loadFXML(fxml));
     }
     
@@ -49,8 +50,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        //con = crearConexion("33006", "CajeroNOVA", "root", "dbrootpass");
-        con = crearConexion("3306", "CajeroNOVA", "root", "123");
+        con = crearConexion("33006", "CajeroNOVA", "root", "dbrootpass");
+        //con = crearConexion("3306", "CajeroNOVA", "root", "123");
         
         launch();
     }
@@ -68,24 +69,7 @@ public class App extends Application {
         return con;
     }
 
-    public void setUpClientes(){
-        String sql = "SELECT * FROM cliente";
-
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                listaClientes.put(rs.getString(1),new Cliente(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
-            }
-        } catch (SQLException e) {
-            Alert alerta = new Alert(AlertType.ERROR);
-            alerta.setTitle("ERROR DE ACCESO");
-            alerta.setHeaderText("ERROR"); 
-            alerta.setContentText("NIF O Clave incorrecta");
-            alerta.showAndWait();
-        }
-       
-    }
+  
 
 
 }
