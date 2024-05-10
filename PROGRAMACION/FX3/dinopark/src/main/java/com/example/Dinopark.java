@@ -48,7 +48,7 @@ public class Dinopark {
     void crearAtraccion(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setWidth(800);
-        stage.setHeight(550);
+        stage.setHeight(500);
 
         App.setRoot("crearZona");
        
