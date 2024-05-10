@@ -56,6 +56,14 @@ public class Dinopark {
     }
 
     @FXML
+    void listarZona(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setWidth(600);
+        stage.setHeight(500);
+        App.setRoot("listarZona");
+    }
+
+    @FXML
     void salir(ActionEvent event) {
         System.exit(0);
     }
@@ -64,12 +72,12 @@ public class Dinopark {
     void initialize() {
     
        con = crearConexion("33006", "JurassicPark", "root", "dbrootpass");
-        //crearConexion("33006", "JurassicPark", "root", "123");
+        con = crearConexion("3306", "JurassicPark", "root", "123");
     }
 
-     public static Connection crearConexion(String puerto, String baseDatos, String usuario, String passwd) {
+     public static Connection crearConexion(String puerto, String baseDatos, String usuario, String pass) {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:33006/JurassicPark","root", "dbrootpass");
+            Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:"+puerto+"/"+baseDatos,usuario,pass);
             return con;
         } catch (Exception e) {
             return null;

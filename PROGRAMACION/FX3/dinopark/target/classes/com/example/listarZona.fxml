@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="578.0" style="-fx-background-color: rgba(213,224,244,255);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ListaZona">
    <children>
-      <ImageView fitHeight="490.0" fitWidth="619.0" layoutX="96.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="469.0" fitWidth="578.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@mapa.png" />
          </image>
       </ImageView>
+      <Button fx:id="cerrar" layoutX="480.0" layoutY="416.0" mnemonicParsing="false" onAction="#vueltaMenu" text="cerrar" />
+      <Button fx:id="este" layoutX="318.0" layoutY="138.0" mnemonicParsing="false" onAction="#listarZona" opacity="0.0" prefHeight="242.0" prefWidth="154.0" text="este" />
+      <Button fx:id="oeste" layoutX="54.0" layoutY="194.0" mnemonicParsing="false" onAction="#listarZona" opacity="0.0" prefHeight="147.0" prefWidth="109.0" text="oeste" />
+      <Button fx:id="norte" layoutX="101.0" layoutY="56.0" mnemonicParsing="false" onAction="#listarZona" opacity="0.0" prefHeight="99.0" prefWidth="176.0" text="norte" />
+      <Button fx:id="sud" layoutX="189.0" layoutY="339.0" mnemonicParsing="false" onAction="#listarZona" opacity="0.0" prefHeight="99.0" prefWidth="90.0" text="Button" />
    </children>
 </AnchorPane>
