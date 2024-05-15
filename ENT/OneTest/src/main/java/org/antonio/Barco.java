@@ -23,9 +23,15 @@ public class Barco {
         this.nombre = nombre;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+    public void setCapacidad(int capacidad){
+
+        if (capacidad>10) {
+            this.capacidad = 10;
+        }else{
+            this.capacidad = capacidad;
+        }
     }
+
 
     public boolean agregarTripulante() {
         if (capacidad < 10) {

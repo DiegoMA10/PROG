@@ -1,6 +1,6 @@
 package org.antonio;
 
-public class Luffy {
+public class Luffy implements Personaje{
     private String nombre;
     private int poder;
 
@@ -29,5 +29,10 @@ public class Luffy {
     // Método para atacar a otro personaje
     public void atacar(Personaje enemigo) {
         enemigo.recibirDanio(poder);
+    }
+
+    @Override
+    public void recibirDanio(int cantidadDanio) {
+        this.poder-=cantidadDanio;
     }
 }

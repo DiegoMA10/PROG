@@ -1,6 +1,6 @@
 package org.antonio;
 
-public class Zoro {
+public class Zoro implements Personaje{
     private String nombre;
     private int poder;
 
@@ -30,5 +30,10 @@ public class Zoro {
     // Método para atacar a otro personaje
     public void atacar(Personaje enemigo) {
         enemigo.recibirDanio(poder);
+    }
+
+    @Override
+    public void recibirDanio(int cantidadDanio) {
+       this.poder -= cantidadDanio;
     }
 }
