@@ -10,10 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Track;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -26,7 +28,7 @@ public class MP3controller {
     private URL location;
 
     @FXML
-    private Slider cancion;
+    private Slider sliderCancion;
 
     @FXML
     private Label duracion;
@@ -52,11 +54,27 @@ public class MP3controller {
     @FXML
     private Slider volumen;
 
-    File file;
+    private File file;
 
-    FileChooser chooser = new FileChooser();
+    private FileChooser chooser = new FileChooser();
 
-    MediaPlayer player;
+    private MediaPlayer player;
+
+    private Cancion cancion;
+
+    private Media media;
+
+    private Image loopImage = new Image(getClass().getResourceAsStream("com/example/images/loop.png"));
+    private Image loop1Image = new Image(getClass().getResourceAsStream("com/example/images/loop1.png"));
+
+    private Image playImage = new Image(getClass().getResourceAsStream("com/example/images/play.png"));
+    private Image stopImage = new Image(getClass().getResourceAsStream("com/example/images/stop.png"));
+
+
+    private Image soundImage = new Image(getClass().getResourceAsStream("com/example/images/sound.png"));
+    private Image soundOffImage = new Image(getClass().getResourceAsStream("com/example/images/soundoff.png"));
+
+
 
     @FXML
     void choiceMusic(ActionEvent event) {
@@ -69,7 +87,7 @@ public class MP3controller {
         file = chooser.showOpenDialog(null);
         if (file != null) {
             try {
-                Media media = new Media(file.toURI().toString());
+                media = new Media(file.toURI().toString());
 
                 if (player != null) {
                     player.stop();
@@ -81,7 +99,18 @@ public class MP3controller {
                 e.printStackTrace();
             }
             player.setAutoPlay(true);
+            player.totalDurationProperty().addListener(ob -> setPropertys());
+            player.setOnEndOfMedia(() -> finCancion());
+         
         }
+    }
+
+    private void finCancion() {
+        
+    }
+
+    private void setPropertys() {
+        cancion = new Cancion(media.getMetadata(), player.getTotalDuration().toMinutes());
     }
 
     @FXML
