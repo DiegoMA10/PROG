@@ -11,7 +11,7 @@
    <children>
       <Slider fx:id="volumen" layoutX="415.0" layoutY="517.0" prefHeight="31.0" prefWidth="234.0" style="-fx-background-color: gray;" />
       <Slider fx:id="sliderCancion" layoutX="145.0" layoutY="466.0" prefHeight="25.0" prefWidth="458.0" />
-      <Label fx:id="metadatos" alignment="CENTER" prefHeight="45.0" prefWidth="688.0" style="-fx-background-color: darkgray;" text="Label" />
+      <Label fx:id="metadatos" alignment="CENTER" prefHeight="45.0" prefWidth="688.0" style="-fx-background-color: darkgray;" />
       <ImageView fitHeight="322.0" fitWidth="367.0" layoutX="178.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/disco.png" />
@@ -65,14 +65,14 @@
       </Button>
       <Button layoutX="31.0" layoutY="427.0" mnemonicParsing="false" onAction="#choiceMusic" style="-fx-background-color: rgb(0,0,0,0);">
          <graphic>
-            <ImageView fx:id="start13" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="menu" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/seleccion.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="tiempo" layoutX="98.0" layoutY="471.0" text="Label" />
-      <Label fx:id="duracion" layoutX="613.0" layoutY="471.0" text="Label" />
+      <Label fx:id="tiempo" layoutX="98.0" layoutY="471.0" />
+      <Label fx:id="duracion" layoutX="613.0" layoutY="471.0" />
    </children>
 </AnchorPane>
